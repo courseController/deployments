@@ -117,7 +117,7 @@
 
                 <b-btn v-b-modal.FileSystem class="btn btn-lg btn-primary">
                     <i class="far fa-folder-open"></i>
-                    Downloads
+                    <span class="d-none d-lg-inline"> Downloads</span>
                 </b-btn>
 
                 <progress-button v-if="presentation.next" class="btn btn-lg btn-primary float-right" :height="5"
@@ -353,6 +353,10 @@
 
     .form-row {
         margin-bottom: 10px;
+    }
+
+    .modal-header{
+        background-color: #efefef;
     }
 
     #FileSystem .modal-body {
