@@ -155,11 +155,11 @@
         'clearUser'
       ]),
 
-      reloadIframe: function(){
-        document.getElementById('FileSystemIFrame').contentWindow.postMessage({action:'reload'}, '*');
+      reloadIframe: function () {
+        document.getElementById('FileSystemIFrame').contentWindow.postMessage({ action: 'reload' }, '*');
       },
 
-      dismissNav: function(){
+      dismissNav: function () {
         this.navRequested = false
       },
 
@@ -177,8 +177,8 @@
 
       loadPresentation (payload) {
         CourseController.loadPresentation(payload)
-          .then(function(){
-            VueScrollTo.scrollTo('#ScrollToPoint', 500, { duration: 500, easing: "ease" } );
+          .then(function () {
+            VueScrollTo.scrollTo('#ScrollToPoint', 500, { duration: 500, easing: "ease" });
           }.bind(VueScrollTo))
       }
 
@@ -198,7 +198,9 @@
 
         fileSystemUrl: state => {
           if (!_.isEmpty(state.presentation)) {
-            return CourseController.serverUrl() + '/fuqu-course/files/' + state.presentation.topic + '/finder?token=' + state.user.api_token
+            return CourseController.serverUrl()
+              + '/fuqu-course/files/' + state.presentation.topic
+              + '/finder?token=' + state.user.api_token
           }
           return false
         }
@@ -355,23 +357,24 @@
         margin-bottom: 10px;
     }
 
-    .modal-header{
+    .modal-header {
         background-color: #efefef;
     }
 
     #FileSystem .modal-body {
-        padding: 0  0.2rem 0.1rem 0.2rem;
+        padding: 0 0.2rem 0.1rem 0.2rem;
     }
-/*
-    #FileSystem .modal-body{
-        overflow: hidden;
-        -webkit-border-bottom-right-radius: 0.3rem;
-        -webkit-border-bottom-left-radius: 0.3rem;
-        -moz-border-radius-bottomright: 0.3rem;
-        -moz-border-radius-bottomleft: 0.3rem;
-        border-bottom-right-radius: 0.3rem;
-        border-bottom-left-radius: 0.3rem;
-    }*/
+
+    /*
+        #FileSystem .modal-body{
+            overflow: hidden;
+            -webkit-border-bottom-right-radius: 0.3rem;
+            -webkit-border-bottom-left-radius: 0.3rem;
+            -moz-border-radius-bottomright: 0.3rem;
+            -moz-border-radius-bottomleft: 0.3rem;
+            border-bottom-right-radius: 0.3rem;
+            border-bottom-left-radius: 0.3rem;
+        }*/
 
     @media (min-width: 768px) {
         #wrapper {
