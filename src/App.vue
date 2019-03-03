@@ -39,7 +39,7 @@
 
             <div id="Corp" class="align-content-center">
                 <img id="Logo" src="/logo.png"/>
-                <span id="Wordmark" class="brand-color brand-font">CourseSite</span>
+                <span id="Wordmark" class="brand-color brand-font">RunningMoms</span>
             </div>
 
 
