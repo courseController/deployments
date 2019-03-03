@@ -89,7 +89,7 @@
                         </router-link>
                     </li>
 
-                    <li v-for="item in externalNav">
+                    <li v-for="item in visableExternalNav">
                         <a :href="item.url" :target="(item.newWindow? '_blank':'_self')">{{ item.label }}</a>
                     </li>
                 </ul>
@@ -203,6 +203,24 @@
               + '/finder?token=' + state.user.api_token
           }
           return false
+        },
+
+        visableExternalNav: function(state){
+          return this.externalNav.filter(function(item){
+
+            switch(true){
+
+              case (typeof item.audience == 'undefined'):
+              case (_.isEmpty(state.user) && item.audience == 'guest'):
+              case (!_.isEmpty(state.user) && item.audience == 'member'):
+                return true
+
+              default:
+                return false
+
+            }
+
+          }.bind(state));
         }
       })
     }
