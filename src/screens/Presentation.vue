@@ -1,12 +1,14 @@
 <template>
     <div>
         <youtube v-if="videoFormat() == 'youtube'" :video="presentation.video"></youtube>
-        <videos v-if="videoFormat() == 'videos'" :video="presentation.video" :key="generateUuid()"></videos>
+        <videos v-if="videoFormat() == 'videos'" :video="presentation.video" :key="keyGen(presentation.video)"></videos>
 
         <story :title="presentation.title"
                :subtitle="presentation.subtitle"
                :main="presentation.html">
         </story>
+
+        {{ Crypto }}
     </div>
 </template>
 
@@ -19,6 +21,13 @@
         name: 'presentation-screen',
         components: {Youtube, Videos},
         methods: {
+
+            keyGen: (obj) => {
+                let objJsonStr = JSON.stringify(obj)
+                let objJsonB64 = Buffer.from(objJsonStr).toString("base64")
+
+                return objJsonB64;
+            },
 
             videoFormat: function () {
 
