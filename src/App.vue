@@ -94,6 +94,11 @@
                     </li>
                 </ul>
 
+                <ul class="sidebar-nav" style="position: absolute; bottom: 110px; height: 20px;">
+                    <li>
+                        <a target="_blank" href="https://trafficjam.io" style="font-size:0.8em;">Powered by TrafficJam&trade;</a>
+                    </li>
+                </ul>
             </div>
 
 
