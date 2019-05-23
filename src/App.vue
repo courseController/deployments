@@ -94,7 +94,7 @@
                     </li>
                 </ul>
 
-                <ul class="sidebar-nav" style="position: absolute; bottom: 110px; height: 20px;">
+                <ul class="sidebar-nav fixed-bottom">
                     <li>
                         <a target="_blank" href="https://trafficjam.io" style="font-size:0.8em;">Powered by TrafficJam&trade;</a>
                     </li>
@@ -120,7 +120,7 @@
                     <i class="fas fa-arrow-left"></i>
                 </progress-button>
 
-                <b-btn v-b-modal.FileSystem class="btn btn-lg btn-primary">
+                <b-btn id="DownloadButton" v-b-modal.FileSystem class="btn btn-lg btn-primary">
                     <i class="far fa-folder-open"></i>
                     <span class="d-none d-lg-inline"> Downloads</span>
                 </b-btn>
@@ -407,6 +407,15 @@
         #wrapper.toggled,
         #Corp {
             padding-left: 250px;
+        }
+
+        #BottomNav{
+            margin-left: 250px;
+        }
+
+        #DownloadButton{
+            position: relative;
+            left:-110px;
         }
 
         .center_nudge {
