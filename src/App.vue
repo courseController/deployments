@@ -94,11 +94,11 @@
                     </li>
                 </ul>
 
-                <ul class="sidebar-nav fixed-bottom">
-                    <li>
-                        <a target="_blank" href="https://trafficjam.io" style="font-size:0.8em;">Powered by TrafficJam&trade;</a>
-                    </li>
-                </ul>
+                <div class="fixed-bottom">
+                        <a target="_blank" href="https://trafficjam.io" style="text-decoration: none; color: #cccccc; font-size: 0.5em; padding-left: 50px;">Powered by TrafficJam&trade;</a>
+                </div>
+
+
             </div>
 
 
@@ -137,99 +137,99 @@
 </template>
 
 <script>
-  import Button from 'vue-progress-button'
-  import {mapState, mapActions} from 'vuex'
-  import {mixin as onClickOutside} from 'vue-on-click-outside'
+    import Button from 'vue-progress-button'
+    import {mapState, mapActions} from 'vuex'
+    import {mixin as onClickOutside} from 'vue-on-click-outside'
 
-  var VueScrollTo = require('vue-scrollto');
+    var VueScrollTo = require('vue-scrollto');
 
-  export default {
-    name: 'app',
-    mixins: [onClickOutside],
-    data: () => {
-      return {
-        externalNav: [],
-        navRequested: false
-      }
-    },
-    components: {
-      'progress-button': Button
-    },
-    methods: {
-      ...mapActions([
-        'clearUser'
-      ]),
-
-      reloadIframe: function () {
-        document.getElementById('FileSystemIFrame').contentWindow.postMessage({ action: 'reload' }, '*');
-      },
-
-      dismissNav: function () {
-        this.navRequested = false
-      },
-
-      stamp: () => {
-        return +new Date();
-      },
-      clearModal: function () {
-        this.$store.dispatch('clearModal')
-      },
-
-      logOut: function () {
-        this.$store.dispatch('clearUser')
-        this.$router.push({ name: 'login' })
-      },
-
-      loadPresentation (payload) {
-        CourseController.loadPresentation(payload)
-          .then(function () {
-            VueScrollTo.scrollTo('#ScrollToPoint', 500, { duration: 500, easing: "ease" });
-          }.bind(VueScrollTo))
-      }
-
-    },
-    mounted () {
-      this.externalNav = nav;
-    },
-    computed: {
-      ...mapState({
-        modal: state => state.modal,
-        user: state => state.user,
-        presentation: state => state.presentation,
-
-        showUserMenu: state => {
-          return (!_.isEmpty(state.user)) ? true : false
+    export default {
+        name: 'app',
+        mixins: [onClickOutside],
+        data: () => {
+            return {
+                externalNav: [],
+                navRequested: false
+            }
         },
-
-        fileSystemUrl: state => {
-          if (!_.isEmpty(state.presentation)) {
-            return CourseController.serverUrl()
-              + '/fuqu-course/files/' + state.presentation.topic
-              + '/finder?token=' + state.user.api_token
-          }
-          return false
+        components: {
+            'progress-button': Button
         },
+        methods: {
+            ...mapActions([
+                'clearUser'
+            ]),
 
-        visableExternalNav: function(state){
-          return this.externalNav.filter(function(item){
+            reloadIframe: function () {
+                document.getElementById('FileSystemIFrame').contentWindow.postMessage({action: 'reload'}, '*');
+            },
 
-            switch(true){
+            dismissNav: function () {
+                this.navRequested = false
+            },
 
-              case (typeof item.audience == 'undefined'):
-              case (_.isEmpty(state.user) && item.audience == 'guest'):
-              case (!_.isEmpty(state.user) && item.audience == 'member'):
-                return true
+            stamp: () => {
+                return +new Date();
+            },
+            clearModal: function () {
+                this.$store.dispatch('clearModal')
+            },
 
-              default:
-                return false
+            logOut: function () {
+                this.$store.dispatch('clearUser')
+                this.$router.push({name: 'login'})
+            },
 
+            loadPresentation(payload) {
+                CourseController.loadPresentation(payload)
+                    .then(function () {
+                        VueScrollTo.scrollTo('#ScrollToPoint', 500, {duration: 500, easing: "ease"});
+                    }.bind(VueScrollTo))
             }
 
-          }.bind(state));
+        },
+        mounted() {
+            this.externalNav = nav;
+        },
+        computed: {
+            ...mapState({
+                modal: state => state.modal,
+                user: state => state.user,
+                presentation: state => state.presentation,
+
+                showUserMenu: state => {
+                    return (!_.isEmpty(state.user)) ? true : false
+                },
+
+                fileSystemUrl: state => {
+                    if (!_.isEmpty(state.presentation)) {
+                        return CourseController.serverUrl()
+                            + '/fuqu-course/files/' + state.presentation.topic
+                            + '/finder?token=' + state.user.api_token
+                    }
+                    return false
+                },
+
+                visableExternalNav: function (state) {
+                    return this.externalNav.filter(function (item) {
+
+                        switch (true) {
+
+                            case (typeof item.audience == 'undefined'):
+                            case (_.isEmpty(state.user) && item.audience == 'guest'):
+                            case (!_.isEmpty(state.user) && item.audience == 'member'):
+                                return true
+
+                            default:
+                                return false
+
+                        }
+
+                    }.bind(state));
+                }
+            })
         }
-      })
     }
-  }
 </script>
 
 
@@ -409,13 +409,13 @@
             padding-left: 250px;
         }
 
-        #BottomNav{
+        #BottomNav {
             margin-left: 250px;
         }
 
-        #DownloadButton{
+        #DownloadButton {
             position: relative;
-            left:-110px;
+            left: -110px;
         }
 
         .center_nudge {
