@@ -6,7 +6,6 @@
         <div class="embed-responsive embed-responsive-16by9">
             <iframe :src="videoSrc"
                     frameborder="0"
-                    data-parameters="showinfo=0"
                     allowfullscreen></iframe>
             <a href="#" @click="$store.dispatch('setModal', { title:'Sorry...', html:'That action is not permitted.' })" class="noshare"></a>
         </div>
