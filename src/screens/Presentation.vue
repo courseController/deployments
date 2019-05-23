@@ -8,7 +8,6 @@
                :main="presentation.html">
         </story>
 
-        {{ Crypto }}
     </div>
 </template>
 
