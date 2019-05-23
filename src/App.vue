@@ -94,7 +94,7 @@
                     </li>
                 </ul>
 
-                <ul class="sidebar-nav" style="position: absolute; bottom: 110px; height: 20px;">
+                <ul class="sidebar-nav fixed-bottom">
                     <li>
                         <a target="_blank" href="https://trafficjam.io" style="font-size:0.8em;">Powered by TrafficJam&trade;</a>
                     </li>
@@ -407,6 +407,10 @@
         #wrapper.toggled,
         #Corp {
             padding-left: 250px;
+        }
+
+        #BottomNav{
+            margin-left: 250px;
         }
 
         .center_nudge {
