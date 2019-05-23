@@ -1,7 +1,7 @@
 <template>
     <div>
         <youtube v-if="videoFormat() == 'youtube'" :video="presentation.video"></youtube>
-        <videos v-if="videoFormat() == 'videos'" :video="presentation.video"></videos>
+        <videos v-if="videoFormat() == 'videos'" :video="presentation.video" :key="generateUuid()"></videos>
 
         <story :title="presentation.title"
                :subtitle="presentation.subtitle"
@@ -17,7 +17,7 @@
 
     export default {
         name: 'presentation-screen',
-        components: {Youtube},
+        components: {Youtube, Videos},
         methods: {
 
             videoFormat: function () {
