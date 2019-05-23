@@ -2,13 +2,12 @@
     <div>
         <!-- 16:9 aspect ratio embed-responsive-16by9 -->
         <!-- 4:3 aspect ratio embed-responsive-4by3 -->
-
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe :src="videoSrc"
-                    frameborder="0"
-                    allowfullscreen></iframe>
-            <a href="#" @click="$store.dispatch('setModal', { title:'Sorry...', html:'That action is not permitted.' })" class="noshare"></a>
+            <video controls playsinline>
+                <source v-for="url in video" :src="url" :type="mimeType(url)">
+            </video>
         </div>
+
     </div>
 </template>
 
@@ -16,17 +15,19 @@
     import {mapActions} from 'vuex'
 
     export default {
-        name: 'youtube',
+        name: 'videos',
         props: ['video'],
 
-        computed: {
-            videoSrc: function () {
-                // @see https://developers.google.com/youtube/player_parameters
-                return '//www.youtube-nocookie.com/embed/' + this.video + '?rel=0&controls=0&modestbranding=1&showinfo=0&'
-            }
-        },
-
         methods: {
+
+            mimeType: (url) => {
+                let mime = url.split('?')[0].split('.').pop()
+                return {
+                    mp4: 'video/mp4',
+                    webm: 'video/webm'
+                }[mime]
+            },
+
             ...mapActions([
                 'setModal'
             ])
@@ -35,13 +36,13 @@
 </script>
 
 <style scoped>
-    .noshare{
+    .noshare {
         display: block;
         width: 30%;
         height: 100%;
         position: absolute;
         top: +0px;
-        right:+0px;
+        right: +0px;
         z-index: 1000;
 
     }

@@ -1,4 +1,3 @@
-
 import 'nprogress/nprogress.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -12,11 +11,14 @@ import VueMq from 'vue-mq'
 
 import './components/_autoload'
 
+import Helpers from './helpers'
 import store from './store'
 import server from './server'
 import router from './router'
 
 CourseController = server;
+
+Vue.use(Helpers)
 
 Vue.use(VueMq, {
     /* up to N px*/
