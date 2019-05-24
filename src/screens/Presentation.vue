@@ -4,6 +4,7 @@
         <videos v-if="videoFormat() == 'videos'" :video="presentation.video" :key="keyGen(presentation.video)"></videos>
 
         <div class="fa-pull-left position-absolute"
+             style="top:-5px;"
              @click="toggleCompleted({type: 'presentation', key: presentation.key})">
             <check :tog="presentation.completed"></check>
         </div>

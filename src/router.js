@@ -8,6 +8,12 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/search-results',
+      name: 'search-results',
+      component: () => import('./screens/SearchResults.vue')
+    },
+
+    {
       path: '/presentation',
       name: 'presentation',
       component: () => import('./screens/Presentation.vue'),
