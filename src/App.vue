@@ -113,10 +113,13 @@
         </div>
 
         <div id="BottomNav" class="row fixed-bottom navbar">
-            <div class="col text-center center_nudge" v-if="!_.isEmpty(presentation)">
-                <progress-button v-if="presentation.previous" class="btn btn-lg btn-primary float-left" :height="5"
+            <div class="col text-center" v-if="!_.isEmpty(presentation)">
+                <progress-button v-if="presentation.previous"
+                                 class="btn btn-lg btn-primary float-left"
+                                 :height="5"
                                  position="bottom" fill-color="#ffffff"
-                                 @click.prevent="loadPresentation({ topic: presentation.topic, presentation: presentation.previous.key })">
+                                 @click.prevent="loadPresentation({ topic: presentation.topic, presentation: presentation.previous.key })"
+                >
                     <i class="fas fa-arrow-left"></i>
                 </progress-button>
 
@@ -414,7 +417,6 @@
         }
 
         #DownloadButton {
-            position: relative;
             left: -110px;
         }
 
