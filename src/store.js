@@ -31,12 +31,23 @@ export default new Vuex.Store({
     },
 
     toggleCompleted: (state, payload) => {
-      for (var i in state.topics) {
-        var topic = state.topics[i];
-        if (topic.key == payload.key) {
-          topic.completed = !topic.completed;
-          CourseController.recordCompletion({ key: topic.key, completed: topic.completed });
+      switch (payload.type) {
+        case 'topic':
+        for (var i in state.topics) {
+          var topic = state.topics[i]
+          if (topic.key == payload.key) {
+            topic.completed = !topic.completed
+            CourseController.recordCompletion('topic', {key: topic.key, completed: topic.completed})
+            break
+          }
         }
+        break;
+
+        case 'presentation':
+          var presentation = state.presentation
+          presentation.completed = !presentation.completed
+          CourseController.recordCompletion('presentation', {key: presentation.key, topic:presentation.topic, completed: presentation.completed})
+          break
       }
     },
     applyTopcis: (state, payload) => {
@@ -54,27 +65,27 @@ export default new Vuex.Store({
   },
   actions: {
 
-    setPresentation: ({ commit, state }, presentation) => {
+    setPresentation: ({commit, state}, presentation) => {
       commit('applyPresentation', presentation)
     },
 
-    setTopics: ({ commit, state }, topics) => {
+    setTopics: ({commit, state}, topics) => {
       commit('applyTopcis', topics)
     },
 
-    setUser: ({ commit, state }, user) => {
+    setUser: ({commit, state}, user) => {
       commit('applyUser', user)
     },
-    clearUser: ({ commit, state }) => {
+    clearUser: ({commit, state}) => {
       commit('applyUser', {})
     },
 
-    setModal: ({ commit, state }, content) => {
+    setModal: ({commit, state}, content) => {
       content.show = (!_.isEmpty(content.title))
       commit('applyModal', content)
     },
-    clearModal: ({ commit, state }) => {
-      commit('applyModal', { title: '', html: '' })
+    clearModal: ({commit, state}) => {
+      commit('applyModal', {title: '', html: ''})
     }
   },
 });

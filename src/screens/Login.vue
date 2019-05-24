@@ -74,13 +74,13 @@
 
   export default {
     name: 'login-screen',
+    components: {'progress-button': Button},
     mounted(){
       if(!_.isEmpty(this.$store.state.user)){
         CourseController.useToken(this.$store.state.user.api_token)
         this.$router.push({name:'home'})
       }
     },
-    components: {'progress-button': Button},
     data: () => {
       return {
         email: '',

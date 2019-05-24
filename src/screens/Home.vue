@@ -36,7 +36,6 @@
   export default {
     name: 'home-screen',
     components: { 'progress-button': Button },
-
     methods: {
       openPresentation: function (topic, presentation) {
         var router = this.$router

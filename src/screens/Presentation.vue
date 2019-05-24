@@ -3,6 +3,11 @@
         <youtube v-if="videoFormat() == 'youtube'" :video="presentation.video"></youtube>
         <videos v-if="videoFormat() == 'videos'" :video="presentation.video" :key="keyGen(presentation.video)"></videos>
 
+        <div class="fa-pull-left position-absolute"
+             @click="toggleCompleted({type: 'presentation', key: presentation.key})">
+            <check :tog="presentation.completed"></check>
+        </div>
+
         <story :title="presentation.title"
                :subtitle="presentation.subtitle"
                :main="presentation.html">
@@ -12,51 +17,51 @@
 </template>
 
 <script>
-    import {mapState, mapActions} from 'vuex'
-    import Youtube from "../components/Youtube";
-    import Videos from "../components/Videos";
+  import {mapState, mapActions, mapMutations} from 'vuex'
 
-    export default {
-        name: 'presentation-screen',
-        components: {Youtube, Videos},
-        methods: {
+  export default {
+    name: 'presentation-screen',
+    methods: {
 
-            keyGen: (obj) => {
-                let objJsonStr = JSON.stringify(obj)
-                let objJsonB64 = Buffer.from(objJsonStr).toString("base64")
+      keyGen: (obj) => {
+        let objJsonStr = JSON.stringify(obj)
+        let objJsonB64 = Buffer.from(objJsonStr).toString("base64")
 
-                return objJsonB64;
-            },
+        return objJsonB64;
+      },
 
-            videoFormat: function () {
+      videoFormat: function () {
 
-                if (typeof this.presentation.video == 'string'
-                    && !this.isUrl(this.presentation.video)) {
+        if (typeof this.presentation.video == 'string'
+          && !this.isUrl(this.presentation.video)) {
 
-                    return 'youtube'
-                }
-
-                if (typeof this.presentation.video == 'object'
-                    && Array.isArray(this.presentation.video)) {
-                    return 'videos'
-                }
-
-                return ''
-            },
-            ...mapActions([
-                'setPresentation'
-            ])
-        },
-        computed: {
-
-            ...mapState({
-                presentation: function (state) {
-                    return state.presentation
-                },
-            })
-        },
-        beforeDestroy: function () {
-            this.setPresentation({})
+          return 'youtube'
         }
+
+        if (typeof this.presentation.video == 'object'
+          && Array.isArray(this.presentation.video)) {
+          return 'videos'
+        }
+
+        return ''
+      },
+      ...mapActions([
+        'setPresentation'
+      ]),
+      ...mapMutations([
+        'toggleCompleted'
+      ])
+    },
+    computed: {
+
+      ...mapState({
+        presentation: function (state) {
+          return state.presentation
+        },
+      })
+    },
+    beforeDestroy: function () {
+      this.setPresentation({})
     }
+  }
 </script>
