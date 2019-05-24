@@ -4,7 +4,7 @@
         <!-- 4:3 aspect ratio embed-responsive-4by3 -->
         <div class="embed-responsive embed-responsive-16by9">
             <video controls playsinline>
-                <source v-for="url in video" :src="url" :type="mimeType(url)">
+                <source v-for="url in video" :src="url.replace('https:','').replace('http:','')" :type="mimeType(url)">
             </video>
         </div>
 
