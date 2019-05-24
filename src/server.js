@@ -28,11 +28,23 @@ export default {
       })
   },
 
-  recordCompletion: (payload) => {
-    var route = '/fuqu-course/topics/{topic}/{action}'
-      .replace('{topic}', payload.key).replace('{action}', 'update')
+  recordCompletion: (type, payload) => {
+    switch (type) {
+      case 'topic':
+        var route = '/fuqu-course/topics/{topic}/{action}'
+          .replace('{topic}', payload.key).replace('{action}', 'update')
 
-    return axios.post(SERVER_URL + route, payload)
+        return axios.post(SERVER_URL + route, payload)
+        //break
+
+      case 'presentation':
+        var route = '/fuqu-course/topics/{topic}/presentations/{presentation}/{action}'
+          .replace('{topic}', payload.topic).replace('{presentation}', payload.key).replace('{action}', 'update')
+
+        return axios.post(SERVER_URL + route, payload)
+        //break
+
+    }
   },
 
   loadTopics: () => {
@@ -44,25 +56,25 @@ export default {
 
   login: (email, password) => {
 
-    return axios.post(SERVER_URL + '/fuqu/enrollments/login', { email, password })
+    return axios.post(SERVER_URL + '/fuqu/enrollments/login', {email, password})
       .then((response) => {
         startUserSession(response.data)
       })
   },
 
   forgotPassword: (email) => {
-    return axios.post(SERVER_URL + '/fuqu/enrollments/forgot-password', { email })
+    return axios.post(SERVER_URL + '/fuqu/enrollments/forgot-password', {email})
   },
 
   useForgotPasswordHash: (hash) => {
-    return axios.post(SERVER_URL + '/fuqu/enrollments/forgot-password-user', { hash })
+    return axios.post(SERVER_URL + '/fuqu/enrollments/forgot-password-user', {hash})
       .then((response) => {
         startUserSession(response.data)
       })
   },
 
   setPassword: (password) => {
-    return axios.post(SERVER_URL + '/fuqu/enrollments/set-password', { password });
+    return axios.post(SERVER_URL + '/fuqu/enrollments/set-password', {password});
   },
 
   useToken: (token) => {
@@ -73,7 +85,7 @@ export default {
     if (typeof axios.defaults.headers.common['Authorization'] != 'undefined') {
       delete axios.defaults.headers.common['Authorization']
     }
-    return axios.post(SERVER_URL + '/fuqu/enrollments/login-as', { enrollment })
+    return axios.post(SERVER_URL + '/fuqu/enrollments/login-as', {enrollment})
       .then((response) => {
         startUserSession(response.data)
       })
@@ -82,12 +94,12 @@ export default {
 
 ////////////////////////////////////////
 
-function startUserSession (user) {
+function startUserSession(user) {
   CourseController.useToken(user.api_token)
   VueApp.$store.dispatch('setUser', user)
 }
 
-function showServerError (message) {
+function showServerError(message) {
   if (!_.isEmpty(message.data.errors)) {
     var title = message.data.message;
     var html = '<ul>'
@@ -100,7 +112,7 @@ function showServerError (message) {
     html = '<p>' + message.data.message + '</p>'
   }
 
-  VueApp.$store.dispatch('setModal', { title, html })
+  VueApp.$store.dispatch('setModal', {title, html})
 }
 
 // Add a request interceptor
