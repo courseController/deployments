@@ -23,7 +23,8 @@ export default new Vuex.Store({
       title: '',
       html: '',
       show: false
-    }
+    },
+    searchResults:[]
   },
   mutations: {
     applyPresentation: (state, payload) => {
@@ -61,9 +62,16 @@ export default new Vuex.Store({
         payload.title = 'Error'
       }
       state.modal = payload
+    },
+    applySearchResults: (state, payload) => {
+      state.searchResults = payload
     }
   },
   actions: {
+
+    setSearchResults: ({commit, state}, results) => {
+      commit('applySearchResults', results)
+    },
 
     setPresentation: ({commit, state}, presentation) => {
       commit('applyPresentation', presentation)
@@ -86,6 +94,9 @@ export default new Vuex.Store({
     },
     clearModal: ({commit, state}) => {
       commit('applyModal', {title: '', html: ''})
-    }
+    },
+    clearSearchResults: ({commit, state}) => {
+      commit('applySearchResults', [])
+    },
   },
 });

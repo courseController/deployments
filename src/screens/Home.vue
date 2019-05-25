@@ -1,6 +1,8 @@
 <template>
     <div class="card-deck">
         <card v-for="topic in topics"
+              v-bind:data="topic"
+              v-bind:key="topic.key"
               :presentation="topic.presentation"
               :title="topic.name"
               :description="topic.description"
@@ -45,7 +47,8 @@
           }.bind(router))
       },
       ...mapMutations([
-        'toggleCompleted'
+        'toggleCompleted',
+        'searchCourseContent'
       ])
     },
 
