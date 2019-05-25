@@ -68,21 +68,22 @@
 
         <div id="wrapper" :class="{toggled: (navRequested || ['md','lg', 'xl'].includes($mq))}">
             <div id="SideBar" v-on-click-outside="dismissNav">
-
-                <b-input-group style="min-width: 250px; top: 5px;">
-                    <b-form-input v-model="searchString"/>
-                    <b-input-group-append>
-                        <progress-button name="bottom"
-                                         @click="searchCourseContent()"
-                                         :height="5"
-                                         position="bottom"
-                                         class="btn btn-primary"
-                                         fill-color="#ffffff">
-                            <i class="fas fa-search"></i>
-                        </progress-button>
-                    </b-input-group-append>
-                </b-input-group>
-
+                <form>
+                    <b-input-group style="min-width: 250px; top: 5px;">
+                        <b-form-input v-model="searchString"/>
+                        <b-input-group-append>
+                            <progress-button name="bottom"
+                                             @click="searchCourseContent()"
+                                             :type="submit"
+                                             :height="5"
+                                             position="bottom"
+                                             class="btn btn-primary"
+                                             fill-color="#ffffff">
+                                <i class="fas fa-search"></i>
+                            </progress-button>
+                        </b-input-group-append>
+                    </b-input-group>
+                </form>
                 <ul class="sidebar-nav">
                     <li class="sidebar-brand">
                         <router-link :to="{name:'home'}">
@@ -187,11 +188,11 @@
         this.$router.push({name: 'login'})
       },
 
-      searchCourseContent(){
+      searchCourseContent() {
         var router = this.$router
         var store = this.$store
         CourseController.searchCourseContent({searchString: this.searchString})
-          .then(function(response){
+          .then(function (response) {
             store.dispatch('setSearchResults', response.data)
             router.push({name: 'search-results'})
           }.bind(router))
