@@ -61,6 +61,7 @@
                     <router-link :to="{name: 'forgot-password'}" tag="button" role="button" class="btn btn-default fa-pull-left">
                         <i class="fa fa-info-circle"></i> Forgot password
                     </router-link>
+                    <div class="clearfix"></div>
                 </div>
             </form>
 

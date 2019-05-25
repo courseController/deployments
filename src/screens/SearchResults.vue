@@ -12,7 +12,6 @@
         <div class="row">
             <div class="col">
 
-
                 <b-card no-body class="overflow-hidden" style="max-width: 100%;">
                     <b-row no-gutters>
                         <b-col md="3">
@@ -31,8 +30,6 @@
                     </b-row>
                 </b-card>
 
-              search:  {{ $parent.searchString }}
-
             </div>
         </div>
 
@@ -40,7 +37,7 @@
 </template>
 
 <script>
-  import {mapState, mapMutations} from 'vuex'
+  import {mapState} from 'vuex'
 
   export default {
     name: 'search-screen',
