@@ -40,7 +40,7 @@
 
             <div id="Corp" class="align-content-center">
                 <img id="Logo" src="/logo.png"/>
-                <span id="Wordmark" class="brand-color brand-font">RunningMoms</span>
+                <span id="Wordmark" class="brand-color brand-font">{{ brandTitle }}</span>
             </div>
 
 
@@ -250,6 +250,10 @@
             }
 
           }.bind(state));
+        },
+
+        brandTitle: function (){
+          return Brand.title
         }
       })
     }
