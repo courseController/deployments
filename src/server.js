@@ -28,17 +28,26 @@ export default {
       })
   },
 
+  searchCourseContent: (payload) => {
+    var route = '/fuqu-course/search?search_string={search_string}'
+      .replace('{search_string}', payload.searchString)
+
+    return axios.get(SERVER_URL + route)
+      .then()
+  },
+
   recordCompletion: (type, payload) => {
+    var route;
     switch (type) {
       case 'topic':
-        var route = '/fuqu-course/topics/{topic}/{action}'
+        route = '/fuqu-course/topics/{topic}/{action}'
           .replace('{topic}', payload.key).replace('{action}', 'update')
 
         return axios.post(SERVER_URL + route, payload)
         //break
 
       case 'presentation':
-        var route = '/fuqu-course/topics/{topic}/presentations/{presentation}/{action}'
+        route = '/fuqu-course/topics/{topic}/presentations/{presentation}/{action}'
           .replace('{topic}', payload.topic).replace('{presentation}', payload.key).replace('{action}', 'update')
 
         return axios.post(SERVER_URL + route, payload)

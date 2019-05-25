@@ -64,7 +64,7 @@
         var callback = this.setModal;
         CourseController.forgotPassword(this.email)
           .then(function (response) {
-            callback({ title: 'Sercurity', html: 'An email has been sent with a link to reset your password.' })
+            callback({ title: 'Security', html: 'An email has been sent with a link to reset your password.' })
           }.bind(callback))
       },
       ...mapActions([

@@ -70,9 +70,10 @@
             <div id="SideBar" v-on-click-outside="dismissNav">
 
                 <b-input-group style="min-width: 250px; top: 5px;">
-                    <b-form-input/>
+                    <b-form-input v-model="searchString"/>
                     <b-input-group-append>
                         <progress-button name="bottom"
+                                         @click="searchCourseContent()"
                                          :height="5"
                                          position="bottom"
                                          class="btn btn-primary"
@@ -95,7 +96,9 @@
                 </ul>
 
                 <div class="fixed-bottom">
-                        <a target="_blank" href="https://trafficjam.io" style="text-decoration: none; color: #cccccc; font-size: 0.5em; padding-left: 50px;">Powered by TrafficJam&trade;</a>
+                    <a target="_blank" href="https://CourseController.com"
+                       style="text-decoration: none; color: #cccccc; font-size: 0.7em; padding-left: 50px;"
+                    >Powered by CourseController&trade;</a>
                 </div>
 
 
@@ -105,7 +108,6 @@
             <div id="PageWrapper">
                 <div class="container-fluid">
                     <router-view></router-view>
-
                 </div>
                 <div id="BottomBuffer" class="clearfix"></div>
             </div>
@@ -140,99 +142,108 @@
 </template>
 
 <script>
-    import Button from 'vue-progress-button'
-    import {mapState, mapActions} from 'vuex'
-    import {mixin as onClickOutside} from 'vue-on-click-outside'
+  import Button from 'vue-progress-button'
+  import {mapState, mapActions} from 'vuex'
+  import {mixin as onClickOutside} from 'vue-on-click-outside'
 
-    var VueScrollTo = require('vue-scrollto');
+  var VueScrollTo = require('vue-scrollto');
 
-    export default {
-        name: 'app',
-        mixins: [onClickOutside],
-        data: () => {
-            return {
-                externalNav: [],
-                navRequested: false
+  export default {
+    name: 'app',
+    mixins: [onClickOutside],
+    data: () => {
+      return {
+        externalNav: [],
+        navRequested: false,
+        searchString: ''
+      }
+    },
+    components: {
+      'progress-button': Button
+    },
+    methods: {
+      ...mapActions([
+        'clearUser'
+      ]),
+
+      reloadIframe: function () {
+        document.getElementById('FileSystemIFrame').contentWindow.postMessage({action: 'reload'}, '*');
+      },
+
+      dismissNav: function () {
+        this.navRequested = false
+      },
+
+      stamp: () => {
+        return +new Date();
+      },
+      clearModal: function () {
+        this.$store.dispatch('clearModal')
+      },
+
+      logOut: function () {
+        this.$store.dispatch('clearUser')
+        this.$router.push({name: 'login'})
+      },
+
+      searchCourseContent(){
+        var router = this.$router
+        CourseController.searchCourseContent({searchString: this.searchString})
+          .then(function(){
+            router.push({name: 'search-results'})
+          }.bind(router))
+      },
+
+      loadPresentation(payload) {
+        CourseController.loadPresentation(payload)
+          .then(function () {
+            VueScrollTo.scrollTo('#ScrollToPoint', 500, {duration: 500, easing: "ease"});
+          }.bind(VueScrollTo))
+      }
+
+    },
+    mounted() {
+      this.externalNav = nav;
+    },
+    computed: {
+      ...mapState({
+        modal: state => state.modal,
+        user: state => state.user,
+        presentation: state => state.presentation,
+
+        showUserMenu: state => {
+          return (!_.isEmpty(state.user)) ? true : false
+        },
+
+        fileSystemUrl: state => {
+          if (!_.isEmpty(state.presentation)) {
+            return CourseController.serverUrl()
+              + '/fuqu-course/files/' + state.presentation.topic
+              + '/finder?token=' + state.user.api_token
+          }
+          return false
+        },
+
+        visableExternalNav: function (state) {
+          return this.externalNav.filter(function (item) {
+
+            switch (true) {
+
+              case (typeof item.audience == 'undefined'):
+              case (_.isEmpty(state.user) && item.audience == 'guest'):
+              case (!_.isEmpty(state.user) && item.audience == 'member'):
+                return true
+
+              default:
+                return false
+
             }
-        },
-        components: {
-            'progress-button': Button
-        },
-        methods: {
-            ...mapActions([
-                'clearUser'
-            ]),
 
-            reloadIframe: function () {
-                document.getElementById('FileSystemIFrame').contentWindow.postMessage({action: 'reload'}, '*');
-            },
-
-            dismissNav: function () {
-                this.navRequested = false
-            },
-
-            stamp: () => {
-                return +new Date();
-            },
-            clearModal: function () {
-                this.$store.dispatch('clearModal')
-            },
-
-            logOut: function () {
-                this.$store.dispatch('clearUser')
-                this.$router.push({name: 'login'})
-            },
-
-            loadPresentation(payload) {
-                CourseController.loadPresentation(payload)
-                    .then(function () {
-                        VueScrollTo.scrollTo('#ScrollToPoint', 500, {duration: 500, easing: "ease"});
-                    }.bind(VueScrollTo))
-            }
-
-        },
-        mounted() {
-            this.externalNav = nav;
-        },
-        computed: {
-            ...mapState({
-                modal: state => state.modal,
-                user: state => state.user,
-                presentation: state => state.presentation,
-
-                showUserMenu: state => {
-                    return (!_.isEmpty(state.user)) ? true : false
-                },
-
-                fileSystemUrl: state => {
-                    if (!_.isEmpty(state.presentation)) {
-                        return CourseController.serverUrl()
-                            + '/fuqu-course/files/' + state.presentation.topic
-                            + '/finder?token=' + state.user.api_token
-                    }
-                    return false
-                },
-
-                visableExternalNav: function (state) {
-                    return this.externalNav.filter(function (item) {
-
-                        switch (true) {
-
-                            case (typeof item.audience == 'undefined'):
-                            case (_.isEmpty(state.user) && item.audience == 'guest'):
-                            case (!_.isEmpty(state.user) && item.audience == 'member'):
-                                return true
-
-                            default:
-                                return false
-
-                        }
-
-                    }.bind(state));
-                }
-            })
+          }.bind(state));
         }
+      })
     }
+  }
 </script>
 
 

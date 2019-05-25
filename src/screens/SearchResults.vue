@@ -12,17 +12,26 @@
         <div class="row">
             <div class="col">
 
-                <div class="card">
-                    <div class="card-img-top"
-                         :style="{ backgroundImage: 'url(' + 'http://lorempixel.com/250/140/sports'.replace('https:','').replace('http:','') + ')' }"></div>
-                    <div class="card-body">
-                        <h5 class="card-title">adsf</h5>
-                        <p class="card-text">adf</p>
-                    </div>
-                    <div class="card-footer">
-                        <slot name="footer"></slot>
-                    </div>
-                </div>
+
+                <b-card no-body class="overflow-hidden" style="max-width: 100%;">
+                    <b-row no-gutters>
+                        <b-col md="3">
+                            <div class="card-img"
+                                 :style="{ backgroundImage: 'url(https://picsum.photos/400/400/?image=20)' }"></div>
+                        </b-col>
+                        <b-col md="9">
+                            <b-card-body title="Horizontal Card">
+                                <b-card-text>
+                                    This is a wider card with supporting text as a natural lead-in to additional
+                                    content.
+                                    This content is a little bit longer.
+                                </b-card-text>
+                            </b-card-body>
+                        </b-col>
+                    </b-row>
+                </b-card>
+
+              search:  {{ $parent.searchString }}
 
             </div>
         </div>
@@ -30,9 +39,18 @@
     </div>
 </template>
 
-<scritp>
+<script>
+  import {mapState, mapMutations} from 'vuex'
 
-</scritp>
+  export default {
+    name: 'search-screen',
+    computed: {
+      ...mapState({
+        searchResults: state => state.searchResults,
+      }),
+    },
+  }
+</script>
 
 
 <style>
@@ -57,10 +75,10 @@
         letter-spacing: 0.3em;
     }
 
-    .card-img-top {
+    .card-img {
         display: block;
-        width: 100%;
-        height: 180px;
+        min-height: 200px;
+        height: 100%;
 
         background-repeat: no-repeat;
         background-position: center center;
