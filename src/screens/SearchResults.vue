@@ -26,7 +26,8 @@
                             ></div>
                         </b-col>
                         <b-col md="8">
-                            <b-card-body :title="topic.name">
+                            <b-card-body>
+                                <b-card-title class="text-truncate">{{topic.name}}</b-card-title>
                                 <b-card-text>
 
                                     <ul class="list-group list-group-flush">
@@ -35,11 +36,8 @@
                                             v-bind:data="presentation"
                                             v-bind:key="presentation.key"
                                         >
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1">{{presentation.title}} ::
-                                                    {{presentation.subtitle}}</h5>
-
-                                                <progress-button class="btn btn-xs btn-primary"
+                                            <div>
+                                                <progress-button class="btn btn-xs btn-primary fa-pull-right"
                                                                  :height="5"
                                                                  position="bottom"
                                                                  fill-color="#ffffff"
@@ -47,6 +45,8 @@
                                                 >
                                                     <i class="fas fa-arrow-right"></i>
                                                 </progress-button>
+                                                <h1 class="text-truncate">{{presentation.title}}</h1>
+                                                <h2>{{presentation.subtitle}}</h2>
 
                                             </div>
                                             <div>{{presentation.synopsis}}</div>
