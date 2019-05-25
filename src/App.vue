@@ -32,8 +32,9 @@
 
             <div class="left-side">
                 <b-button-group class="d-inline-block d-md-none">
+                    <router-link tag="button" class="btn btn-secondary" :to="{name:'home'}" @click="dismissNav()"><i
+                            class="fas fa-home"></i></router-link>
                     <b-button @click.stop.prevent="navRequested = !navRequested"><i class="fas fa-bars"></i></b-button>
-                    <!--<router-link tag="button" class="btn btn-secondary" :to="{name:'home'}"><i class="fas fa-home"></i></router-link>-->
                 </b-button-group>
             </div>
 
@@ -68,13 +69,13 @@
 
         <div id="wrapper" :class="{toggled: (navRequested || ['md','lg', 'xl'].includes($mq))}">
             <div id="SideBar" v-on-click-outside="dismissNav">
-                <form>
+                <b-form>
                     <b-input-group style="min-width: 250px; top: 5px;">
                         <b-form-input v-model="searchString"/>
                         <b-input-group-append>
                             <progress-button name="bottom"
                                              @click="searchCourseContent()"
-                                             :type="submit"
+                                             type="submit"
                                              :height="5"
                                              position="bottom"
                                              class="btn btn-primary"
@@ -83,15 +84,18 @@
                             </progress-button>
                         </b-input-group-append>
                     </b-input-group>
-                </form>
+                </b-form>
                 <ul class="sidebar-nav">
-                    <li class="sidebar-brand">
+                    <li class="sidebar-brand d-none d-md-block">
                         <router-link :to="{name:'home'}">
                             <i class="fas fa-home"></i> Home
                         </router-link>
                     </li>
 
-                    <li v-for="item in visableExternalNav">
+                    <li v-for="item in visableExternalNav"
+                        v-bind:data="item"
+                        v-bind:key="item.url"
+                    >
                         <a :href="item.url" :target="(item.newWindow? '_blank':'_self')">{{ item.label }}</a>
                     </li>
                 </ul>
@@ -191,11 +195,13 @@
       searchCourseContent() {
         var router = this.$router
         var store = this.$store
+        var dismissNav = this.dismissNav;
         CourseController.searchCourseContent({searchString: this.searchString})
           .then(function (response) {
             store.dispatch('setSearchResults', response.data)
             router.push({name: 'search-results'})
-          }.bind(router))
+            dismissNav()
+          })
       },
 
       loadPresentation(payload) {
@@ -336,7 +342,7 @@
     .sidebar-nav {
 
         width: 250px;
-        margin: 0;
+        margin: 25px 0px 0px 0px;
         padding: 0;
         list-style: none;
     }
@@ -362,7 +368,6 @@
     }
 
     .sidebar-nav > .sidebar-brand {
-        height: 65px;
         font-size: 18px;
         line-height: 60px;
     }
