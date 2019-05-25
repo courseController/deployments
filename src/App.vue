@@ -163,7 +163,8 @@
     },
     methods: {
       ...mapActions([
-        'clearUser'
+        'clearUser',
+
       ]),
 
       reloadIframe: function () {
@@ -188,8 +189,10 @@
 
       searchCourseContent(){
         var router = this.$router
+        var store = this.$store
         CourseController.searchCourseContent({searchString: this.searchString})
-          .then(function(){
+          .then(function(response){
+            store.dispatch('setSearchResults', response.data)
             router.push({name: 'search-results'})
           }.bind(router))
       },
