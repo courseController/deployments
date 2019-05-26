@@ -17,12 +17,23 @@
                 </div>
 
                 <progress-button
+                        v-if="topic.presentation"
                         :height="5"
                         position="bottom"
                         class="btn btn-primary fa-pull-right"
                         fill-color="#ffffff"
                         @click.prevent="openPresentation(topic, topic.presentation)">
                     Open
+                </progress-button>
+
+                <progress-button
+                        v-if="!topic.presentation"
+                        :height="5"
+                        position="bottom"
+                        class="btn btn-default fa-pull-right"
+                        fill-color="#ffffff"
+                        @click.prevent="openPresentation(topic, topic.presentation)">
+
                 </progress-button>
 
             </div>
