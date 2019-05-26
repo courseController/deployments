@@ -13,6 +13,29 @@
             <div v-html="modal.html"></div>
         </b-modal>
 
+        <b-modal
+                id="unlock"
+                ok-only
+                :title="brandUnlock.title"
+                :no-close-on-backdrop=true
+                :no-close-on-esc=true
+                :hide-header-close=false
+        >
+            <div v-if="brandUnlock.video">
+                <youtube v-if="brandUnlock.video.format == 'youtube'" :video="brandUnlock.video.location"></youtube>
+                <videos v-if="brandUnlock.video.format == 'file'" :video="[brandUnlock.video.location]"></videos>
+            </div>
+
+            <div v-if="brandUnlock.html"
+                 v-html="brandUnlock.html"></div>
+
+            <template slot="modal-footer" slot-scope="{ ok }">
+                <a class="btn btn-primary btn-sm" target="_blank" :href="brandUnlock.button.url">
+                    {{ brandUnlock.button.label }}
+                </a>
+            </template>
+        </b-modal>
+
         <b-modal v-if="fileSystemUrl"
                  id="FileSystem"
                  title="Downloadable Files"
@@ -150,6 +173,7 @@
   import Button from 'vue-progress-button'
   import {mapState, mapActions} from 'vuex'
   import {mixin as onClickOutside} from 'vue-on-click-outside'
+  import Videos from "./components/Videos";
 
   var VueScrollTo = require('vue-scrollto');
 
@@ -164,6 +188,7 @@
       }
     },
     components: {
+      Videos,
       'progress-button': Button
     },
     methods: {
@@ -252,8 +277,11 @@
           }.bind(state));
         },
 
-        brandTitle: function (){
+        brandTitle: function () {
           return Brand.title
+        },
+        brandUnlock: function () {
+          return Brand.unlock
         }
       })
     }
