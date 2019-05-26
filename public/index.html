@@ -11,11 +11,23 @@
       var VueApp;
       var CourseController;
       var Brand = {
-        title: 'RunningMoms'
+        title: 'RunningMoms',
+        unlock: {
+          title: 'Join RunningMoms',
+          html:'Unlock everything by registering!',
+          video:{
+            format: ['file','youtube'][0],
+            location: '//s3-us-west-2.amazonaws.com/runningmoms-videos/Start%20Here/videos/Getting-Started-01.mp4'
+          },
+          button:{
+            label: 'Yes!',
+            url:'https://start.runningmoms.com'
+          }
+        }
       }
       var nav = [
-        { label: 'RunningMoms', url: '//www.RunningMoms.com', newWindow: true },
-        { label: 'Blog', url: '//www.RunningMoms.com/blog', newWindow: true },
+        { label: 'RunningMoms', url: 'https://www.RunningMoms.com', newWindow: true },
+        { label: 'Blog', url: 'https://www.RunningMoms.com/blog', newWindow: true },
       ];
     </script>
     <!-- https://fontawesome.com/start -->
@@ -76,6 +88,16 @@
         color: #fff;
         background-color: #96CA2D;
         border-color: #96CA2D;
+    }
+
+    .btn-default{
+        border:1px solid #dedede;
+    }
+
+    .card.topic.disabled {
+        /*-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+        filter: alpha(opacity=50);
+        opacity: 0.5;*/
     }
 
     .brand-font {
