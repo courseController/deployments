@@ -41,10 +41,23 @@
                                                                  :height="5"
                                                                  position="bottom"
                                                                  fill-color="#ffffff"
+                                                                 v-if="!presentation.lock"
                                                                  @click.prevent="openPresentation(topic, presentation)"
                                                 >
                                                     <i class="fas fa-arrow-right"></i>
                                                 </progress-button>
+
+                                                <progress-button
+                                                        v-else
+                                                        :height="5"
+                                                        position="bottom"
+                                                        class="btn btn-default fa-pull-right"
+                                                        fill-color="#ffffff"
+                                                        @click="$bvModal.show('unlock')"
+                                                >
+                                                    <i class="fas fa-unlock"></i>
+                                                </progress-button>
+
                                                 <h1 class="text-truncate">{{presentation.title}}</h1>
                                                 <h2>{{presentation.subtitle}}</h2>
 
