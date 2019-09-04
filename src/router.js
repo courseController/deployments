@@ -61,6 +61,9 @@ export default new Router({
             .then(function(response){
               next({name:'set-password'});
             }.bind(next))
+            .catch(function (response) {
+              next({name : 'login'});
+            })
 
         }else if(typeof VueApp == 'undefined' || _.isEmpty(VueApp.$store.state.user)){
           next({name : 'login'})
