@@ -26,7 +26,7 @@
                         class="btn btn-primary fa-pull-right"
                         fill-color="#ffffff"
                         @click.prevent="openPresentation(topic, topic.presentation)">
-                    <i class="fa fa-book-reader"></i> Open
+                    <i class="fa fa-book-reader"></i>
                 </progress-button>
 
 
