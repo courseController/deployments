@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-img-top"
-             :style="{ backgroundImage: 'url(' + image.replace('https:','').replace('http:','') + ')' }"
+             :style="{ backgroundImage: 'url(' + image.replace('https:','').replace('http:','') + '?w=500)' }"
              @click.prevent="action"
         ></div>
         <div class="card-body">
