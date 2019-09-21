@@ -8,6 +8,7 @@
               :description="topic.description"
               :image="topic.cover"
               :class="{topic, disabled: !topic.presentation}"
+              :action="makeActionClosure(topic)"
         >
 
             <div slot="footer">
@@ -25,19 +26,32 @@
                         class="btn btn-primary fa-pull-right"
                         fill-color="#ffffff"
                         @click.prevent="openPresentation(topic, topic.presentation)">
-                    Open
+                    <i class="fa fa-book-reader"></i> Open
+                </progress-button>
+
+
+                <progress-button
+                        v-if="!topic.presentation"
+                        :height="5"
+                        position="bottom"
+                        class="btn btn-outline-default fa-pull-left"
+                        fill-color="#ffffff"
+                        @click="$bvModal.show('unlock')"
+                >
+                    <i class="fa fa-unlock"></i>
                 </progress-button>
 
                 <progress-button
                         v-if="!topic.presentation"
                         :height="5"
                         position="bottom"
-                        class="btn btn-default fa-pull-right"
+                        class="btn btn-outline-primary fa-pull-right"
                         fill-color="#ffffff"
                         @click="$bvModal.show('unlock')"
                 >
-                    <i class="fas fa-unlock"></i>
+                    <i class="fa fa-info-circle"></i>
                 </progress-button>
+
 
             </div>
 
@@ -53,6 +67,16 @@
     name: 'home-screen',
     components: {'progress-button': Button},
     methods: {
+      makeActionClosure: function(topic){
+        if(typeof topic.presentation != "undefined"){
+            var openPresentation = this.openPresentation;
+            return function(){openPresentation(topic, topic.presentation)}.bind(openPresentation);
+        }else{
+          var bvModal = this.$bvModal;
+         return function(){bvModal.show('unlock')}.bind(bvModal)
+        }
+      },
+
       openPresentation: function (topic, presentation) {
         var router = this.$router
         CourseController.loadPresentation({topic: topic.key, presentation: presentation.key})

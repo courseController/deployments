@@ -1,7 +1,9 @@
 <template>
     <div class="card">
         <div class="card-img-top"
-             :style="{ backgroundImage: 'url(' + image.replace('https:','').replace('http:','') + ')' }"></div>
+             :style="{ backgroundImage: 'url(' + image.replace('https:','').replace('http:','') + ')' }"
+             @click.prevent="action"
+        ></div>
         <div class="card-body">
             <h5 class="card-title">{{ title }}</h5>
             <p class="card-text">{{ description }}</p>
@@ -15,7 +17,7 @@
 <script>
   export default {
     name: 'card',
-    props: ['image', 'title', 'description', 'presentation'],
+    props: ['image', 'action', 'title', 'description', 'presentation'],
   }
 </script>
 
