@@ -30,7 +30,7 @@
                  v-html="brandUnlock.html"></div>
 
             <template slot="modal-footer" slot-scope="{ ok }">
-                <a class="btn btn-primary btn-sm" target="_blank" :href="brandUnlock.button.url">
+                <a class="btn btn-primary btn-sm" :href="brandUnlock.button.url">
                     {{ brandUnlock.button.label }}
                 </a>
             </template>
