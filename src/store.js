@@ -16,6 +16,7 @@ export default new Vuex.Store({
   plugins: [vuexPersist.plugin],
   getters: {},
   state: {
+    enrollment: {},
     topics: [],
     presentation: {},
     user: {},
@@ -79,6 +80,10 @@ export default new Vuex.Store({
 
     setTopics: ({commit, state}, topics) => {
       commit('applyTopcis', topics)
+    },
+
+    setEnrollment: ({commit, state}, enrollment) => {
+      commit('applyEnrollment', enrollment)
     },
 
     setUser: ({commit, state}, user) => {

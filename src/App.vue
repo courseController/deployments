@@ -69,10 +69,12 @@
 
             <b-nav class="float-right" v-if="showUserMenu">
                 <b-nav-item-dropdown id="UserMenu" :text="user.first_name" right>
-                    <b-dropdown-item>
-                        <router-link tag="a" class="dropdown-item" :to="{name: 'set-password'}">Change Password
-                        </router-link>
-                    </b-dropdown-item>
+
+                    <a class="dropdown-item" :href="courseControllerUrl('/fuqu/enrollments/{student_token}'.replace('{student_token}',user.api_token))" target="_blank">Update Card</a>
+
+                    <router-link tag="a" class="dropdown-item" :to="{name: 'set-password'}">Change Password
+                    </router-link>
+
                     <b-dropdown-divider></b-dropdown-divider>
                     <b-dropdown-item @click="logOut()">Logout</b-dropdown-item>
                 </b-nav-item-dropdown>
@@ -234,7 +236,15 @@
           .then(function () {
             VueScrollTo.scrollTo('#ScrollToPoint', 500, {duration: 500, easing: "ease"});
           }.bind(VueScrollTo))
-      }
+      },
+
+      courseControllerUrl: function(path) {
+        let domain = (process.env.NODE_ENV === 'production')
+          ? 'https://CourseController.com'
+          : 'http://CourseController.test';
+
+        return domain + path;
+      },
 
     },
     mounted() {

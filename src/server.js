@@ -17,6 +17,13 @@ export default {
     return SERVER_URL;
   },
 
+  loadEnrollment: () => {
+    axios.get(SERVER_URL + '/fuqu-course/enrollment')
+      .then((response) => {
+        VueApp.$store.dispatch('setEnrollment', response.data)
+      })
+  },
+
   loadPresentation: (payload) => {
     var route = '/fuqu-course/topics/{topic}/presentations/{presentation}'
       .replace('{topic}', payload.topic).replace('{presentation}', payload.presentation)
