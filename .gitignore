@@ -106,5 +106,4 @@ dist
 .tern-port
 
 # deployment
-./dist
-./deploy.sh
+/deploy.sh
