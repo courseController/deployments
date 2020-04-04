@@ -70,7 +70,7 @@
             <b-nav class="float-right" v-if="showUserMenu">
                 <b-nav-item-dropdown id="UserMenu" :text="user.first_name" right>
 
-                    <a class="dropdown-item" :href="courseControllerUrl('/fuqu/enrollments/{student_token}'.replace('{student_token}',user.api_token))" target="_blank">Update Card</a>
+                    <!--<a class="dropdown-item" :href="courseControllerUrl('/fuqu/enrollments/{student_token}'.replace('{student_token}',user.api_token))" target="_blank">Update Card</a>-->
 
                     <router-link tag="a" class="dropdown-item" :to="{name: 'set-password'}">Change Password
                     </router-link>
