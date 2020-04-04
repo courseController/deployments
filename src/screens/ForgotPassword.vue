@@ -37,7 +37,14 @@
                                  class="btn btn-default fa-pull-left">
                         <i class="fa fa-info-circle"></i> Back to Login
                     </router-link>
-                    <button role="button" class="btn btn-primary" type="submit">Reset</button>
+                    <!--<button role="button" class="btn btn-primary" type="submit">Reset</button>-->
+                    <progress-button :height="5"
+                                     type="submit"
+                                     position="bottom"
+                                     class="btn btn-primary"
+                                     fill-color="#ffffff"
+                                     @click="processForm">Reset</progress-button>
+
                 </div>
             </form>
 
