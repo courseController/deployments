@@ -1,6 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
-deploy.sh
-
 ### Node template
 # Logs
 logs
@@ -107,3 +105,5 @@ dist
 # TernJS port file
 .tern-port
 
+# deployment
+/deploy.sh
