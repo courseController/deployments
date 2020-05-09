@@ -23,42 +23,27 @@
     <link rel="manifest" href="//thebackoffice.github.io//favicon/manifest.json">
 
     <link href='//fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'>
-    <title>RunningMoms Members</title>
-
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '200838537640352');
-        fbq('track', 'PageView');
-    </script>
+    <title>StateTagApp</title>
 
     <script>
       var VueApp;
       var CourseController;
       var Brand = {
-        title: 'RunningMoms',
+        title: 'StateTagApp',
         unlock: {
-          title: 'Join RunningMoms',
-          html:'<div class="alert alert-success"><strong>Get access to everything when you join!</strong></div>',
+          title: 'Register',
+          html:'<div class="alert alert-success"><strong>Get access to everything when you register!</strong></div>',
           video:{
             format: ['file','youtube'][0],
-            location: '//s3-us-west-2.amazonaws.com/runningmoms-videos/Unlock.webm'
+            location: '//s3.amazonaws.com/state-tag-app/Unlock.webm'
           },
           button:{
-            label: 'Join RunningMoms!',
-            url:'https://start.runningmoms.com'
+            label: 'Register!',
+            url:'https://StateTagApp.com'
           }
         }
       }
       var nav = [
-        { label: 'RunningMoms', url: 'https://www.RunningMoms.com', newWindow: true },
-        { label: 'Blog', url: 'https://www.RunningMoms.com/blog', newWindow: true },
       ];
     </script>
     <!-- https://fontawesome.com/start -->
@@ -67,8 +52,10 @@
 </head>
 <body>
 <noscript>
-    <strong>We're sorry but course-site doesn't work properly without JavaScript enabled. Please enable it to
-        continue.</strong>
+    <strong>
+        We're sorry but course-site doesn't work properly without JavaScript enabled.
+        Please enable it to continue.
+    </strong>
 </noscript>
 <div class="nprogress-container"></div>
 <div id="app"></div>
