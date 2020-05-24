@@ -6,8 +6,10 @@
 
             <form class="shadow-sm p-3 mb-5 bg-white rounded align-middle wizard" @submit.prevent="processForm">
                 <fieldset>
-                    <legend>Set Password</legend>
-
+                    <legend>Set a New Password</legend>
+                    <p class="alert alert-light">
+                        What would you like your new password to be?
+                    </p>
                     <div class="form-row">
                         <div class="col-md-12">
                             <label for="password">password</label>
@@ -22,7 +24,7 @@
                                        v-model.trim="password"
                                        class="form-control"
                                        type="password"
-                                       placeholder="password"
+                                       placeholder="new password"
                                        required>
                             </div>
                         </div>
